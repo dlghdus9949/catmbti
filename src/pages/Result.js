@@ -3,7 +3,7 @@ import React from "react";
 const Result = () => {
     return(
         <div>
-            홈화면
+            결과
         </div>
     );
 }
