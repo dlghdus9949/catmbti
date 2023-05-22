@@ -2,11 +2,22 @@ import React from "react";
 import styled from 'styled-components';
 //import cat1 from '../assets/cat1.jpeg';
 import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ResultData } from "../assets/data/resultdata";
 
 const Result = () => {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const mbti = searchParams.get('mbti');
+    // 최종적으로 도출한 결과 객체
+    const [resultData, setResultData] = React.useState({});
+
+    React.useEffect(()=>{
+        const result = ResultData.find((s) => s.best === mbti);
+        setResultData(result);
+    },[mbti])
+
+    console.log(mbti);
 
     return(
         <Wrapper>
@@ -18,10 +29,10 @@ const Result = () => {
                     결과 보기
                 </Title>
                 <LogoImage>
-                    <img src={ResultData[0].image} className="rounded-circle" width={350}/>
+                    <img src={resultData.image} className="rounded-circle" width={350}/>
                 </LogoImage>
                 <Desc>
-                    예비 집사님과 찰떡 궁합인 고양이는 {ResultData[0].name}입니다.
+                    예비 집사님과 찰떡 궁합인 고양이는 {resultData.name}입니다.
                 </Desc>
                 <Button
                     style={{fontFamily:'GangwonEduSaeeum_OTFMediumA'}}
